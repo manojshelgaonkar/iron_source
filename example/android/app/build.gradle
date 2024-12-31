@@ -27,13 +27,9 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 34
-    namespace ="com.ironSource.ironsource_mediation_example"
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
+    namespace = "com.ironSource.ironsource_mediation_example"
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.ironSource.ironsource_mediation_example"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion 34
@@ -42,12 +38,23 @@ android {
         multiDexEnabled true
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8" // Explicitly set to a valid and supported target
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
 }
 
@@ -55,7 +62,6 @@ flutter {
     source '../..'
 }
 
-// Add dependency repositories here
 repositories {
     google()
     mavenCentral()
@@ -63,7 +69,7 @@ repositories {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version" // Updated to jdk8
     implementation 'androidx.multidex:multidex:2.0.1'
 
     // Play Services
@@ -75,5 +81,4 @@ dependencies {
     implementation 'com.ironsource.sdk:mediationsdk:8.4.0'
 
     // Add Adapters and Network SDKs here
-    // https://developers.is.com/ironsource-mobile/flutter/mediation-networks-flutter/
 }
